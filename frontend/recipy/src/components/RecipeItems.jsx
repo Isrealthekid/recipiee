@@ -13,7 +13,7 @@ const RecipeItems = () => {
       { allRecipes?.map((item, index) => {
         return(
           <div className='card' key={index}>
-            <img src={foodImg} width="120px" height="100px"></img>
+            <img src={`http://localhost:5000/images/${item.coverImage}`} width="120px" height="100px"></img>
 
             <div className='card-body'>
                 <div className="title">{item.title}</div>

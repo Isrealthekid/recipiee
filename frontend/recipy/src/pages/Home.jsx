@@ -4,8 +4,12 @@ import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import RecipeItem from '../components/RecipeItems'
 import RecipeItems from '../components/RecipeItems'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+
+  const navigate=useNavigate()
+
   return (
     <>
     {/* <Navbar/> */}
@@ -15,7 +19,7 @@ const Home = () => {
             <h5> 
             "At Recipy, we believe that cooking is an art meant to be shared. Our app brings together a community of food lovers, from home cooks to professional chefs, all united by their passion for creating delicious meals. Whether you're looking for quick weeknight dinners, authentic cultural dishes, or indulgent desserts, you'll find recipes crafted with love and expertise. Our contributors come from diverse culinary backgrounds, each sharing their personal stories, tips, and kitchen secrets to help you bring more flavor to your table."
             </h5>
-            <button>Share your recipe</button>
+            <button onClick={()=>navigate("/addRecipe")}>Share your recipe</button>
         </div>
         <div className="right">
             <img src={foodRecipe} width="320px" height="300px">
