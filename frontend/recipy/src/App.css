@@ -165,6 +165,8 @@ section{
   border:none;
   left:30%;
   width: 40%;
+  background-color: #ffffff;
+  color: #213547;
 }
 
 .backdrop{
@@ -198,7 +200,7 @@ section{
 
 .form-control .input{
   flex-basis: 70%;
-  border:1px solid rgb(156 163 175);
+  border:1px solid rgb(14, 14, 14);
   border-radius: 4px;
   height: 30px;
   padding: 2px;

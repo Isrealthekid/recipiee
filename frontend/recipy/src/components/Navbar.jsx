@@ -1,17 +1,30 @@
 import React from 'react'
+import { useState } from 'react'
+import Modal from './Modal'
+import InputForm from './InputForm'
+import { NavLink } from 'react-router-dom'
 
 const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false)
+
+  const checkLogin=()=> {
+    setIsOpen(true)
+  }
+
   return (
    <>
     <header>
+      
         <h2>Food Blog</h2>
         <ul>
-            <li>Home</li>
-            <li>My Recipes</li>
-            <li>Favourites</li>
-            <li>Login</li>
+            <li><NavLink to="/">Home</NavLink> </li>
+            <li><NavLink to="/myRecipe">My Recipes</NavLink></li>
+            <li><NavLink to="/favRecipe">Favourites</NavLink></li>
+            <li onClick={checkLogin}><p className='login'>Login</p></li>
         </ul>
     </header>
+    {(isOpen) && <Modal onClose={()=>setIsOpen(false)}><InputForm setIsOpen={()=>setIsOpen(false)}/></Modal>} 
+
    </>
   )
 }

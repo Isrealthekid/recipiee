@@ -15,7 +15,7 @@ const userSignUp = async (req, res) => {
 
     const newUser = await User.create({ email, password: hashPassword })
     let token = jwt.sign({ email,id:newUser._id }, process.env.SECRET_KEY)
-    return res.status(200).json({token,newUser})
+    return res.status(200).json({token,user:newUser})
 
 
 }
@@ -31,7 +31,7 @@ const userLogin = async (req, res) => {
         return res.status(200).json({token,user})
     }
     else{
-        return res.status(400).json({message:"Invalid Email or Password"}) 
+        return res.status(400).json({error:"Invalid Email or Password"}) 
     }
 }
 
