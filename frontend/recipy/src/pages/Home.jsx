@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import foodRecipe from '../assets/foodRecipe.png'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
@@ -9,6 +9,15 @@ import { useNavigate } from 'react-router-dom'
 const Home = () => {
 
   const navigate=useNavigate()
+  const [isOpen,setIsOpen]=useState(false)
+  const addRecipe=()=>{
+    let token=localStorage.getItem("token")
+  if(token)
+      navigate("/addRecipe")
+  else{
+    setIsOpen(true)
+  }
+  }
 
   return (
     <>
@@ -31,7 +40,7 @@ const Home = () => {
 
     </div>
     {/* <Footer/> */}
-
+    {(isOpen) && <Modal onClose={()=>setIsOpen(false)}><InputForm setIsOpen={()=>setIsOpen(false)}/></Modal>}
     <div className='recipe'>
         <RecipeItems/>
     </div>
