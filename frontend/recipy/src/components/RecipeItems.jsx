@@ -12,7 +12,8 @@ const RecipeItems = () => {
   const recipes=useLoaderData()
   const [allRecipes, setAllRecipes]=useState()
   let path=window.location.pathname==="/myRecipe" ? true : false
-  
+  let favItems=JSON.parse(localStorage.getItem("fav")) ?? []
+  const [isFavRecipe,setIsFavRecipe]=useState(false)
   console.log(allRecipes)
 
   useEffect(()=>{
@@ -23,7 +24,19 @@ const RecipeItems = () => {
     await axios.delete(`http://localhost:5000/recipe/${id}`)
     .then((res)=>console.log(res))
     setAllRecipes(recipes=>recipes.filter(recipe=>recipe._id !== id))
+    let filterItem=favItems.filter(recipe=>recipe._id !== id)
+    localStorage.setItem("fav",JSON.stringify(filterItem))
+
   }
+
+
+  const favRecipe=(item)=>{
+    let filterItem=favItems.filter(recipe=>recipe._id !== item._id)
+    favItems=favItems.filter(recipe=>recipe._id === item._id).length === 0 ?[...favItems,item] : filterItem
+    localStorage.setItem("fav",JSON.stringify(favItems))
+    setIsFavRecipe(pre=>!pre)
+  }
+
   return (
     <>
     <div className='card-container'>
@@ -36,7 +49,7 @@ const RecipeItems = () => {
                 <div className="title">{item.title}</div>
               <div className="icons">
                   <div className='time'><BiSolidStopwatch />{item.time}min</div>
-                 {(!path) ? <BiSolidHeart /> :  
+                 {(!path) ? <BiSolidHeart onClick={()=>favRecipe(item)} style={{color:(favItems.some(res=>res._id===item._id)) ? "red": ""}} /> :  
                     <div className='action'> 
                     <Link to={`/editRecipe/${item._id}`} className='editIcon'> <FaEdit/></Link>
                     < MdDelete onClick={()=>onDelete(item._id)} className='deleteIcon' />
